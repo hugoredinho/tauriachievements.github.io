@@ -31,7 +31,7 @@
       </div>
       <ul class="week-affixes" *ngIf="weekAffixes().length" aria-label="This week's affixes">
         <li *ngFor="let affix of weekAffixes()" [title]="affix.description">
-          <img [src]="affix.icon" alt="" loading="lazy" />
+          <span class="affix-icon"><img [src]="affix.icon" alt="" loading="lazy" /></span>
           <span>{{ affix.name }}</span>
         </li>
       </ul>
