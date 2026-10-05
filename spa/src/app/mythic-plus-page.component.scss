@@ -600,5 +600,26 @@
   color: #bdbdbd;
   font-size: .8rem;
 
-  li { display: inline-flex; align-items: center; gap: 6px; cursor: help; }
+  li { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: help; }
+
+  // Mouse only, like the table's affix tooltips.
+  @media (hover: hover) {
+    li:hover .affix-tooltip { opacity: 1; visibility: visible; }
+  }
+}
+
+// The description runs a sentence or two, so wrap it and pin it to the left edge instead of centering.
+// Opens below: above, it would slide under the sticky site header.
+.week-affix-tooltip {
+  z-index: 20;
+  top: calc(100% + 6px);
+  bottom: auto;
+  left: 0;
+  width: max-content;
+  max-width: 280px;
+  padding: 6px 10px;
+  font-size: .8rem;
+  line-height: 1.4;
+  white-space: normal;
+  transform: none;
 }
