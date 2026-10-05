@@ -600,7 +600,7 @@
   color: #bdbdbd;
   font-size: .8rem;
 
-  li { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: help; }
+  li { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
 
   // Mouse only, like the table's affix tooltips.
   @media (hover: hover) {
