@@ -237,7 +237,9 @@ $plot-height: 200px;
 .column-chart {
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
-  padding: 4px 4px 0 0;
+  // Room above the plot for the top y-axis label, which is centred on its gridline;
+  // .chart-scroll's horizontal scroll would otherwise clip its upper half.
+  padding: 10px 4px 0 0;
 
   &.days { min-width: max(640px, calc(var(--columns) * 14px)); }
   &.levels { min-width: max(360px, calc(var(--columns) * 22px)); }
@@ -253,6 +255,7 @@ $plot-height: 200px;
     color: #8a8a8a;
     font-size: .69rem;
     font-variant-numeric: tabular-nums;
+    line-height: 1;
     transform: translateY(50%);
   }
 }
