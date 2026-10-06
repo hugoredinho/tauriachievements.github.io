@@ -489,9 +489,16 @@ $plot-height: 200px;
   gap: 5px;
   margin-right: 12px;
   vertical-align: middle;
-  cursor: help;
+  cursor: pointer;
+}
 
-  img { width: 18px; height: 18px; border-radius: 3px; }
+// The weeks table scrolls sideways, which would clip a tooltip inside it, so its affix
+// tooltip is placed against the viewport where the hovered affix is.
+.week-affix-tooltip.floating {
+  position: fixed;
+  top: auto;
+  opacity: 1;
+  visibility: visible;
 }
 
 // Middle-aligned with the affixes; on the baseline its smaller text would sit low in the row.

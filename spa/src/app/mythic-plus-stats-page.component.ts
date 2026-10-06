@@ -94,7 +94,9 @@ const formatPercent = (part: number, whole: number) => `${Math.round(percentOf(p
   styleUrl: './mythic-plus-stats-page.component.scss',
   // Keeps one of this page's dropdowns open at a time.
   providers: [FilterDropdownCoordinatorService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  // The weeks table's affix tooltip is fixed to the viewport, so it would stay behind on scroll.
+  host: { '(window:scroll)': 'hideAffixTooltip()' }
 })
 export class MythicPlusStatsPageComponent implements OnInit {
   private readonly dataFiles = inject(DataFileService);
@@ -257,8 +259,30 @@ export class MythicPlusStatsPageComponent implements OnInit {
     })).reverse();
   });
 
+  /** The affix description shown for the hovered affix in the weeks table, in viewport pixels. */
+  readonly affixTooltip = signal<{ text: string; left: number; top?: number; bottom?: number } | undefined>(undefined);
+
   ngOnInit(): void {
     this.loadData();
+  }
+
+  /** Mouse only, like the other affix tooltips. Opens below the affix, or above it near the bottom of the screen. */
+  showAffixTooltip(event: PointerEvent, affix: MythicPlusAffix): void {
+    if (event.pointerType !== 'mouse' || !affix.description) {
+      return;
+    }
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const below = rect.bottom + 140 < window.innerHeight;
+    this.affixTooltip.set({
+      text: affix.description,
+      left: rect.left,
+      top: below ? rect.bottom + 6 : undefined,
+      bottom: below ? undefined : window.innerHeight - rect.top + 6
+    });
+  }
+
+  hideAffixTooltip(): void {
+    this.affixTooltip.set(undefined);
   }
 
   setLevelDungeon(value: FilterDropdownValue): void {

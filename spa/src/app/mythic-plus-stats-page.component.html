@@ -256,7 +256,7 @@
           <p class="chart-subtitle">Whole season, newest first</p>
         </div>
       </header>
-      <div class="table-scroll">
+      <div class="table-scroll" (scroll)="hideAffixTooltip()">
         <table class="weeks">
           <thead>
             <tr>
@@ -271,8 +271,12 @@
           <tbody>
             <tr *ngFor="let row of weekRows()" [class.current]="row.current">
               <td>
-                <span class="week-affix" *ngFor="let affix of row.affixes" [title]="affix.description">
-                  <img [src]="affix.icon" alt="" loading="lazy" />{{ affix.name }}
+                <span
+                  class="week-affix"
+                  *ngFor="let affix of row.affixes"
+                  (pointerenter)="showAffixTooltip($event, affix)"
+                  (pointerleave)="hideAffixTooltip()">
+                  <span class="affix-icon"><img [src]="affix.icon" alt="" loading="lazy" /></span>{{ affix.name }}
                 </span>
                 <span class="current-tag" *ngIf="row.current">This week</span>
               </td>
@@ -285,6 +289,12 @@
           </tbody>
         </table>
       </div>
+      <span
+        class="week-affix-tooltip floating"
+        *ngIf="affixTooltip() as tooltip"
+        [style.left.px]="tooltip.left"
+        [style.top.px]="tooltip.top"
+        [style.bottom.px]="tooltip.bottom">{{ tooltip.text }}</span>
     </section>
 
     <ng-template #noRuns>
