@@ -157,10 +157,17 @@
             </span>
             <span
               class="track"
+              appTapTooltip
               role="img"
-              [attr.aria-label]="row.dungeon.name + ': ' + row.runs + ' runs, ' + row.segments[0].count + ' ' + row.segments[0].label.toLowerCase() + ', ' + row.segments[1].count + ' ' + row.segments[1].label.toLowerCase()"
-              [title]="row.segments[0].label + ' ' + row.segments[0].count + ' · ' + row.segments[1].label + ' ' + row.segments[1].count">
+              tabindex="0"
+              [attr.aria-label]="row.dungeon.name + ': ' + row.runs + ' runs, ' + row.segments[0].count + ' ' + row.segments[0].label.toLowerCase() + ', ' + row.segments[1].count + ' ' + row.segments[1].label.toLowerCase()">
               <span *ngFor="let segment of row.segments" [class]="'segment ' + segment.key" [style.width.%]="segment.width"></span>
+              <span class="tooltip" aria-hidden="true">
+                <strong>{{ row.dungeon.name }}</strong>
+                <span class="tooltip-row" *ngFor="let segment of row.segments">
+                  <i [class]="'swatch ' + segment.key"></i>{{ segment.label }}<b>{{ segment.count | number }}</b>
+                </span>
+              </span>
             </span>
             <span class="dungeon-value">
               <b>{{ row.runs | number }}</b>

@@ -431,13 +431,30 @@ $plot-height: 200px;
 }
 
 .track {
+  position: relative;
   display: flex;
   height: 14px;
   gap: 2px;
+  outline: none;
 
   .segment { min-width: 0; height: 100%; }
   .segment:first-child { border-radius: 3px 0 0 3px; }
-  .segment:last-child { border-radius: 0 3px 3px 0; }
+  // The tooltip is the last child, so the last segment is the one before it.
+  .segment:nth-last-child(2) { border-radius: 0 3px 3px 0; }
+
+  // Same instant tooltip as the day columns, opened above the bar.
+  .tooltip { bottom: calc(100% + 6px); left: 0; }
+
+  &:focus-visible, &.tooltip-open { z-index: 3; }
+  &:focus-visible .tooltip, &.tooltip-open .tooltip { opacity: 1; visibility: visible; }
+  &:focus-visible .segment, &.tooltip-open .segment { filter: brightness(1.2); }
+  &:focus-visible { box-shadow: 0 0 0 2px $gold; }
+
+  @media (hover: hover) {
+    &:hover { z-index: 3; }
+    &:hover .tooltip { opacity: 1; visibility: visible; }
+    &:hover .segment { filter: brightness(1.2); }
+  }
 }
 
 .dungeon-value {
