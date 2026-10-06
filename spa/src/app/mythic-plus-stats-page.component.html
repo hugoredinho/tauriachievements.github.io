@@ -37,9 +37,10 @@
           (click)="setPeriod('week')">This week</button>
       </div>
       <ul class="week-affixes" *ngIf="weekAffixes().length" aria-label="This week's affixes">
-        <li *ngFor="let affix of weekAffixes()" [title]="affix.description">
-          <img [src]="affix.icon" alt="" loading="lazy" />
+        <li *ngFor="let affix of weekAffixes()">
+          <span class="affix-icon"><img [src]="affix.icon" alt="" loading="lazy" /></span>
           <span>{{ affix.name }}</span>
+          <span class="week-affix-tooltip" *ngIf="affix.description">{{ affix.description }}</span>
         </li>
       </ul>
     </div>
