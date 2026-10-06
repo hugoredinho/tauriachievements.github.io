@@ -253,7 +253,7 @@ export class MythicPlusStatsPageComponent implements OnInit {
     return weekSummaries(this.allRuns(), this.timers(), this.weeks()).map((row, position, rows) => ({
       ...row,
       affixes: this.affixList(row.week.affixes),
-      dates: row.runs ? `${day(row.firstRun)} – ${day(row.lastRun)}` : '-',
+      dates: row.runs ? `${day(row.firstRun)} - ${day(row.lastRun)}` : '-',
       timedRate: formatPercent(row.timed, row.runs),
       current: position === rows.length - 1
     })).reverse();

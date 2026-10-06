@@ -478,7 +478,8 @@ $plot-height: 200px;
 
   th, td { padding: 9px 10px; border-bottom: 1px solid #2a2a2a; text-align: left; white-space: nowrap; }
   th { color: #8a8a8a; font-size: .72rem; font-weight: 600; }
-  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .num { text-align: center; font-variant-numeric: tabular-nums; }
+  .center { text-align: center; }
   .dates { color: #bdbdbd; }
   tr.current td { background: rgba(247, 181, 0, .05); }
 }

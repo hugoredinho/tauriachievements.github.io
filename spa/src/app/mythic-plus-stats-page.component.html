@@ -261,10 +261,10 @@
           <thead>
             <tr>
               <th scope="col">Affixes</th>
-              <th scope="col">Runs played</th>
+              <th scope="col" class="center">Runs played</th>
               <th scope="col" class="num">Runs</th>
               <th scope="col" class="num">Timed</th>
-              <th scope="col" class="num">Highest timed</th>
+              <th scope="col" class="num">Highest key timed</th>
               <th scope="col" class="num">Players</th>
             </tr>
           </thead>
@@ -280,7 +280,7 @@
                 </span>
                 <span class="current-tag" *ngIf="row.current">This week</span>
               </td>
-              <td class="dates">{{ row.dates }}</td>
+              <td class="dates center">{{ row.dates }}</td>
               <td class="num">{{ row.runs | number }}</td>
               <td class="num">{{ row.timedRate }}</td>
               <td class="num">{{ row.highestTimed ? '+' + row.highestTimed : '-' }}</td>
