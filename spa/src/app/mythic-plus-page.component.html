@@ -83,6 +83,26 @@
           <span *ngIf="selectedDungeonTimer() as timer">Timer {{ timer }}</span>
         </div>
         <div class="toolbar-actions">
+          <div class="view-switch" role="group" aria-label="Order runs" *ngIf="view() === 'runs'">
+            <button
+              type="button"
+              [class.active]="runOrder() === 'best'"
+              [attr.aria-pressed]="runOrder() === 'best'"
+              (click)="setRunOrder('best')">Best</button>
+            <button
+              type="button"
+              [class.active]="runOrder() === 'latest'"
+              [attr.aria-pressed]="runOrder() === 'latest'"
+              (click)="setRunOrder('latest')">Latest</button>
+          </div>
+          <button type="button" class="scoring-link compare-toggle" [class.active]="compareMode()" [attr.aria-pressed]="compareMode()"
+            (click)="toggleCompareMode()">
+            <svg class="scoring-link-chart" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <rect x="1.5" y="3" width="5.5" height="10" rx="1" />
+              <rect x="9" y="3" width="5.5" height="10" rx="1" />
+            </svg>
+            {{ compareMode() ? 'Stop comparing' : 'Compare' }}
+          </button>
           <div class="view-switch" role="group" aria-label="Rank runs or players">
             <button
               type="button"
@@ -210,6 +230,9 @@
         [expandedRunId]="expandedRunId()"
         [emptyMessage]="emptyMessage()"
         [cards]="cards()"
+        [completed]="true"
+        [runOrder]="runOrder()"
+        (runOrderChange)="setRunOrder($event)"
         (toggleRun)="toggleRun($event)" />
 
       <app-mythic-plus-players-list
@@ -219,11 +242,32 @@
         [singleDungeon]="!!selectedDungeon()"
         [emptyMessage]="emptyMessage()"
         [cards]="cards()"
-        [highlightKey]="characterFilter()?.key" />
+        [highlightKey]="characterFilter()?.key"
+        [pickMode]="compareMode()"
+        [pickedKeys]="pickedKeys()"
+        (pick)="togglePick($event)" />
 
       <ng-container *ngTemplateOutlet="pager; context: { $implicit: true }"></ng-container>
     </ng-container>
   </ng-container>
+  <!-- Compare: who is picked, and opening the comparison. -->
+  <aside class="compare-tray" *ngIf="compareMode()" aria-label="Players picked to compare">
+    <p class="compare-tray-hint" *ngIf="!picked().length">
+      Click up to {{ compareLimit }} players to compare<ng-container *ngIf="view() !== 'players'"> on the Players view</ng-container>.
+    </p>
+    <ul class="compare-picks" *ngIf="picked().length">
+      <li *ngFor="let pick of picked()">
+        <span [style.color]="pick.color">{{ pick.name }}</span>
+        <button type="button" (click)="removePick(pick.key)" [attr.aria-label]="'Remove ' + pick.name">×</button>
+      </li>
+    </ul>
+    <span class="compare-count">{{ picked().length }} / {{ compareLimit }}</span>
+    <button type="button" class="compare-cancel" (click)="cancelCompare()">Cancel</button>
+    <a class="compare-go" [class.disabled]="picked().length < 2" [attr.aria-disabled]="picked().length < 2"
+      routerLink="/mythic-plus/compare" [queryParams]="compareParams()">
+      Compare{{ picked().length > 1 ? ' ' + picked().length : '' }}
+    </a>
+  </aside>
 </main>
 
 <app-back-to-top-button />
