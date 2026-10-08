@@ -309,7 +309,6 @@ $plot-height: 220px;
 }
 
 .run-main {
-  position: relative;
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
@@ -321,29 +320,8 @@ $plot-height: 220px;
 .run-time { display: block; color: #9a9a9a; font-size: .72rem; font-variant-numeric: tabular-nums; }
 .run-time.over-time { color: #6f6f6f; }
 
-// Points behind the best: only on the dungeon pointed at, so the table stays calm.
-.run-behind {
-  // Beside the value, out of the flow, so the value stays centred in its column.
-  position: absolute;
-  top: 50%;
-  left: calc(100% + 6px);
-  transform: translateY(-50%);
-  white-space: nowrap;
-  color: #8a8a8a;
-  font-size: .75rem;
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity .12s ease;
-}
-
-.dungeons-table tbody tr { outline: none; }
-.dungeons-table tbody tr:hover,
-.dungeons-table tbody tr:focus-visible { background: rgba(255, 255, 255, .03); }
-.dungeons-table tbody tr:hover .run-behind,
-.dungeons-table tbody tr:focus-visible .run-behind,
-.dungeons-table tbody tr:focus .run-behind { opacity: 1; }
-.not-played { position: relative; color: #6f6f6f; font-style: italic; }
-.not-played .run-behind { font-style: normal; }
+.dungeons-table tbody tr:hover { background: rgba(255, 255, 255, .03); }
+.not-played { color: #6f6f6f; font-style: italic; }
 
 // Score over the season: a line per player, a hit target per day.
 .legend {
@@ -566,8 +544,6 @@ svg.line {
 // Two players: a Lead column between them, a bar from its middle towards the leader.
 .dungeons-table.duel {
   .col-lead { width: 34%; padding: 6px 4px; }
-  // The bar shows the gap; no hover numbers needed.
-  .run-behind { display: none; }
   tfoot th, tfoot td { border-bottom: 0; padding-top: 12px; }
 }
 

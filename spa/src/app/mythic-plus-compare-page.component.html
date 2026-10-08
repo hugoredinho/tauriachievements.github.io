@@ -171,12 +171,12 @@
         </div>
       </section>
 
-      <!-- Best run per dungeon, the best of them in gold, the others' gap to it. -->
+      <!-- Best run per dungeon, the best of them in gold. -->
       <section class="card" aria-labelledby="dungeons-title">
         <header class="card-header">
           <h2 id="dungeons-title">Best run per dungeon</h2>
           <p class="card-subtitle" *ngIf="players().length === 2">The bar grows towards whoever leads, by how much</p>
-          <p class="card-subtitle" *ngIf="players().length > 2">The best of them stands out · <span class="hint-hover">hover a dungeon for the points behind</span><span class="hint-touch">tap a dungeon for the points behind</span></p>
+          <p class="card-subtitle" *ngIf="players().length > 2">The best of them stands out</p>
         </header>
         <div class="table-scroll">
           <table class="compare-table dungeons-table" [class.versus]="players().length > 1" [class.duel]="players().length === 2">
@@ -190,7 +190,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of dungeonRows()" tabindex="0">
+              <tr *ngFor="let row of dungeonRows()">
                 <th scope="row" class="col-label">
                   <span class="dungeon-name"><img [src]="row.dungeon.icon" alt="" />{{ row.dungeon.name }}</span>
                 </th>
@@ -204,11 +204,10 @@
                       <span class="run-key" [class.over-time]="run.upgrades === 0">
                         +{{ run.keyLevel }}<span class="level-star" *ngIf="run.upgrades > 0">{{ upgradeStars(run.upgrades) }}</span>
                       </span>
-                      <span class="run-behind" *ngIf="cell.behind > 0">−{{ cell.behind | number:'1.1-1' }}</span>
                     </span>
                     <span class="run-time" [class.over-time]="run.upgrades === 0">{{ run.clearTime }}</span>
                   </ng-container>
-                  <ng-template #notPlayed><span class="not-played">Not played<span class="run-behind" *ngIf="cell.behind > 0">−{{ cell.behind | number:'1.1-1' }}</span></span></ng-template>
+                  <ng-template #notPlayed><span class="not-played">Not played</span></ng-template>
                 </td>
                 </ng-container>
               </tr>
