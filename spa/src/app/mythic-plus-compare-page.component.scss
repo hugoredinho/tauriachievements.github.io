@@ -275,7 +275,7 @@ $plot-height: 220px;
   td.best .stat-value { color: $gold; font-weight: 800; }
   td.best .stat-sub { color: #bdbdbd; }
 
-  // Best run per dungeon: the others fade back; the score colours stay on the best.
+  // Best run per dungeon: the others fade back.
   td:not(.best) .run-main { opacity: .5; }
 }
 
@@ -318,7 +318,6 @@ $plot-height: 220px;
 .run-key { color: #fff; font-size: .95rem; font-weight: 700; }
 .run-key.over-time { color: #8a8a8a; }
 .level-star { margin-left: 2px; color: $gold; font-size: .7rem; letter-spacing: -1px; }
-.run-points { font-weight: 700; }
 .run-time { display: block; color: #9a9a9a; font-size: .72rem; font-variant-numeric: tabular-nums; }
 .run-time.over-time { color: #6f6f6f; }
 

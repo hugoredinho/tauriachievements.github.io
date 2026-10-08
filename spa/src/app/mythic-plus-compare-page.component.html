@@ -204,7 +204,6 @@
                       <span class="run-key" [class.over-time]="run.upgrades === 0">
                         +{{ run.keyLevel }}<span class="level-star" *ngIf="run.upgrades > 0">{{ upgradeStars(run.upgrades) }}</span>
                       </span>
-                      <span class="run-points" [ngClass]="'q-' + run.quality">{{ run.score | number:'1.1-1' }}</span>
                       <span class="run-behind" *ngIf="cell.behind > 0">−{{ cell.behind | number:'1.1-1' }}</span>
                     </span>
                     <span class="run-time" [class.over-time]="run.upgrades === 0">{{ run.clearTime }}</span>
