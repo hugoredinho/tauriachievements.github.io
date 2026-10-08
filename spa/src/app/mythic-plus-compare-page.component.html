@@ -75,7 +75,9 @@
               <th scope="col" class="col-label"><span class="visually-hidden">Stat</span></th>
               <th scope="col" class="col-player" *ngFor="let player of players(); trackBy: trackKey">
                 <div class="player-head" [style.--class-color]="player.member.color">
-                  <a class="remove" routerLink="/mythic-plus/compare" [queryParams]="removeParams(player.key)"
+                  <!-- Down to one player there is nothing left to compare, so back to the leaderboard. -->
+                  <a class="remove" [routerLink]="players().length > 2 ? '/mythic-plus/compare' : '/mythic-plus'"
+                    [queryParams]="players().length > 2 ? removeParams(player.key) : null"
                     [attr.aria-label]="'Remove ' + player.member.name" title="Remove from the comparison">×</a>
                   <span class="crest"><img [src]="player.crest" [alt]="player.member.className" /></span>
                   <a class="player-name" [routerLink]="player.member.profileLink" [style.color]="player.member.color">{{ player.member.name }}</a>
