@@ -246,9 +246,6 @@ $plot-height: 220px;
 
 .player-meta, .player-guild { max-width: 100%; overflow: hidden; color: #9a9a9a; font-size: .72rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
 
-// The colour of their line on the chart.
-.line-key { width: 28px; height: 3px; margin-top: 6px; border-radius: 2px; background: var(--line-color); }
-
 .remove {
   position: absolute;
   top: -8px;

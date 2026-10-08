@@ -74,14 +74,13 @@
             <tr>
               <th scope="col" class="col-label"><span class="visually-hidden">Stat</span></th>
               <th scope="col" class="col-player" *ngFor="let player of players(); trackBy: trackKey">
-                <div class="player-head" [style.--class-color]="player.member.color" [style.--line-color]="player.color">
+                <div class="player-head" [style.--class-color]="player.member.color">
                   <a class="remove" routerLink="/mythic-plus/compare" [queryParams]="removeParams(player.key)"
                     [attr.aria-label]="'Remove ' + player.member.name" title="Remove from the comparison">×</a>
                   <span class="crest"><img [src]="player.crest" [alt]="player.member.className" /></span>
                   <a class="player-name" [routerLink]="player.member.profileLink" [style.color]="player.member.color">{{ player.member.name }}</a>
                   <span class="player-meta">{{ player.member.realm }} · {{ player.member.spec }} {{ player.member.className }}</span>
                   <span class="player-guild" *ngIf="player.member.guild">&lt;{{ player.member.guild }}&gt;</span>
-                  <span class="line-key" aria-hidden="true"></span>
                 </div>
               </th>
             </tr>
