@@ -455,6 +455,8 @@ export class MythicPlusPageComponent implements OnInit {
   /** On with `?compare=` (from a profile's or the compare page's "pick on the leaderboard"). */
   readonly compareMode = signal(this.route.snapshot.queryParamMap.has('compare'));
   private readonly comparePicks = signal(parseCompareParam(this.route.snapshot.queryParamMap.get('compare')));
+  /** Where Cancel goes back to; a `?compare=` link comes from outside the leaderboard, so the default view. */
+  private viewBeforeCompare: LeaderboardView = 'runs';
   /** The picks, with their class colour once the export is loaded. */
   readonly picked = computed(() => {
     const characters = this.indexCharacters();
@@ -475,8 +477,10 @@ export class MythicPlusPageComponent implements OnInit {
   toggleCompareMode(): void {
     this.compareMode.update(on => !on);
     if (this.compareMode()) {
+      this.viewBeforeCompare = this.view();
       this.setView('players');
     }
+    this.syncQueryParams();
   }
 
   togglePick(row: PlayerRow): void {
@@ -486,17 +490,21 @@ export class MythicPlusPageComponent implements OnInit {
     }
     this.comparePicks.update(picks =>
       picks.length < COMPARE_LIMIT ? [...picks, { name: row.member.name, realm: row.member.realm }] : picks);
+    this.syncQueryParams();
   }
 
   removePick(key: string): void {
     const characters = this.indexCharacters();
     this.comparePicks.update(picks => picks.filter(pick =>
       characterKey(findCharacters(characters, pick.realm, pick.name)[0] ?? pick) !== key));
+    this.syncQueryParams();
   }
 
   cancelCompare(): void {
     this.comparePicks.set([]);
     this.compareMode.set(false);
+    this.setView(this.viewBeforeCompare);
+    this.syncQueryParams();
   }
 
   retryLoad(): void {
@@ -644,7 +652,8 @@ export class MythicPlusPageComponent implements OnInit {
         class: players ? this.classFilter() ?? null : null,
         spec: players ? this.specFilter() ?? null : null,
         character: character ? characterParam(character) : null,
-        page: this.currentPage() > 1 ? this.currentPage() : null
+        page: this.currentPage() > 1 ? this.currentPage() : null,
+        compare: this.compareMode() ? compareParam(this.picked()) || null : null
       }
     });
 
