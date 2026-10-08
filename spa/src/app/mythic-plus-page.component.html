@@ -265,7 +265,7 @@
     <button type="button" class="compare-cancel" (click)="cancelCompare()">Cancel</button>
     <a class="compare-go" [class.disabled]="picked().length < 2" [attr.aria-disabled]="picked().length < 2"
       routerLink="/mythic-plus/compare" [queryParams]="compareParams()">
-      Compare{{ picked().length > 1 ? ' ' + picked().length : '' }}
+      Compare
     </a>
   </aside>
 </main>
